@@ -1,0 +1,24 @@
+/* Cinematic layer. Only active when html.cin (set when reduced motion is off). */
+#ld{display:none}
+.cin #ld{position:fixed;inset:0;z-index:1000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;background:var(--ld-bg);color:var(--ld-fg);transition:transform .6s cubic-bezier(.76,0,.24,1);animation:ldfail .1s linear 2s forwards}
+.cin #ld .t{font:var(--ld-font);font-size:clamp(1.8rem,6vw,3.4rem);letter-spacing:var(--ld-ls,.04em);overflow:hidden;line-height:1.3}
+.cin #ld .t span{display:block;transform:translateY(110%);animation:ldup .6s cubic-bezier(.16,1,.3,1) .05s forwards}
+.cin #ld .l{width:min(220px,50vw);height:2px;background:color-mix(in srgb,var(--ld-fg) 25%,transparent);overflow:hidden}
+.cin #ld .l i{display:block;height:100%;background:var(--ld-ac,var(--ld-fg));transform:scaleX(0);transform-origin:left;animation:ldbar .7s cubic-bezier(.65,0,.35,1) .05s forwards}
+.cin #ld.out{transform:translateY(-100%)}
+.cin #ld.gone{display:none}
+@keyframes ldup{to{transform:none}}@keyframes ldbar{to{transform:scaleX(1)}}@keyframes ldfail{to{opacity:0;visibility:hidden}}
+.cin.lock{overflow:hidden}
+#sp{display:none}
+.cin #sp{display:block;position:fixed;top:0;inset-inline:0;height:3px;background:var(--sp,#fff);transform:scaleX(0);transform-origin:left;z-index:999}
+html[dir=rtl].cin #sp,.cin[dir=rtl] #sp{transform-origin:right}
+.cin .w{display:inline-block;overflow:hidden;vertical-align:top;padding:.2em .06em;margin:-.2em -.06em}
+.cin .w>span{display:inline-block;transform:translateY(115%);transition:transform 1.1s cubic-bezier(.16,1,.3,1);transition-delay:calc(var(--i,0)*55ms + var(--b,0ms))}
+.cin .go .w>span,.cin .in .w>span,.cin .w.in>span{transform:none}
+.cin .rv{opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);transition-delay:var(--d,0ms)}
+.cin .rv.in{opacity:1;transform:none}
+.cin .unmask{clip-path:inset(0 0 100% 0);transition:clip-path 1s cubic-bezier(.76,0,.24,1) .1s}
+.cin .unmask.in{clip-path:inset(0);transform:none}
+.cin .draw{transform:scaleX(0);transform-origin:right;transition:transform 1.4s cubic-bezier(.65,0,.35,1)}
+.cin .draw.in{transform:none}
+@media (prefers-reduced-motion:reduce){#ld,#sp{display:none!important}}
